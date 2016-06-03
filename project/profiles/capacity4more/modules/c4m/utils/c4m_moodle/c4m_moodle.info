@@ -1,0 +1,6 @@
+name = Moodle Integration
+description = Integration with a Capacity4more Moodle platform.
+core = 7.x
+package = capacity4more - Utilities
+
+dependencies[] = moodle_sso
