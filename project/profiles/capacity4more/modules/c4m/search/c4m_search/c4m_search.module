@@ -8,44 +8,6 @@ include_once 'c4m_search.features.inc';
 include_once 'c4m_search.facetapi_sorts.inc';
 
 /**
- * Implements hook_default_search_api_server().
- *
- * Don't feature this as this will be probably overwritten depending on the
- * environment.
- */
-function c4m_search_default_search_api_server() {
-  $items = array();
-  $items['c4m_solr'] = entity_import(
-    'search_api_server',
-    '{
-    "name" : "Solr",
-    "machine_name" : "c4m_solr",
-    "description" : "",
-    "class" : "search_api_solr_service",
-    "options" : {
-      "clean_ids" : true,
-      "site_hash" : true,
-      "scheme" : "http",
-      "host" : "127.0.0.1",
-      "port" : "8983",
-      "path" : "\\/solr\\/capacity4more",
-      "http_user" : "",
-      "http_pass" : "",
-      "excerpt" : 0,
-      "retrieve_data" : 0,
-      "highlight_data" : 0,
-      "skip_schema_check" : 0,
-      "solr_version" : "",
-      "http_method" : "AUTO"
-    },
-    "enabled" : "1",
-    "rdf_mapping" : []
-  }'
-  );
-  return $items;
-}
-
-/**
  * Implements hook_search_api_server_load().
  *
  * Provide a configuration as the same structure as the
