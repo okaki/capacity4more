@@ -11,6 +11,9 @@ function c4m_search_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "facetapi" && $api == "facetapi_defaults") {
     return array("version" => "1");
   }
+  if ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => "1");
+  }
 }
 
 /**
@@ -29,9 +32,10 @@ function c4m_search_default_search_api_index() {
     "name" : "Search Nodes",
     "machine_name" : "c4m_search_nodes",
     "description" : "Search index for all nodes.",
-    "server" : "c4m_solr",
+    "server" : "acquia_search",
     "item_type" : "node",
     "options" : {
+      "datasource" : { "bundles" : [] },
       "index_directly" : 1,
       "cron_limit" : "50",
       "data_alter_callbacks" : {
@@ -225,7 +229,7 @@ function c4m_search_default_search_api_index() {
     "name" : "Search Users",
     "machine_name" : "c4m_search_users",
     "description" : null,
-    "server" : "c4m_solr",
+    "server" : "acquia_search",
     "item_type" : "user",
     "options" : {
       "index_directly" : 1,
@@ -374,6 +378,42 @@ function c4m_search_default_search_api_index() {
     },
     "enabled" : "1",
     "read_only" : "0",
+    "rdf_mapping" : []
+  }');
+  return $items;
+}
+
+/**
+ * Implements hook_default_search_api_server().
+ */
+function c4m_search_default_search_api_server() {
+  $items = array();
+  $items['acquia_search'] = entity_import('search_api_server', '{
+    "name" : "Acquia search",
+    "machine_name" : "acquia_search",
+    "description" : "",
+    "class" : "acquia_search_service",
+    "options" : {
+      "clean_ids" : true,
+      "site_hash" : true,
+      "scheme" : "http",
+      "host" : "euwest1-c7.acquia-search.com",
+      "port" : "80",
+      "path" : "\\/solr\\/AJRW-117680",
+      "edismax" : 0,
+      "modify_acquia_connection" : 0,
+      "http_user" : "",
+      "http_pass" : "",
+      "excerpt" : 0,
+      "retrieve_data" : 0,
+      "highlight_data" : 0,
+      "skip_schema_check" : 0,
+      "solr_version" : "",
+      "http_method" : "AUTO",
+      "log_query" : 0,
+      "log_response" : 0
+    },
+    "enabled" : "1",
     "rdf_mapping" : []
   }');
   return $items;
