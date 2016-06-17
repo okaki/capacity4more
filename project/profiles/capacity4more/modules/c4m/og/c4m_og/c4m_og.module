@@ -193,21 +193,6 @@ function c4m_og_replace_owner_build_form($form, $form_state, $entity_type, $etid
 }
 
 /**
- * Returns the amount of shares in the group.
- *
- * @param int $og_id
- *   The Organic Group ID to gather the metrics for.
- *
- * @return int
- *   The amount of shares from this group.
- */
-function c4m_og_group_share_metric($og_id) {
-  $group = node_load($og_id);
-
-  return c4m_content_share_get_number_of_shared_content_per_group($group);
-}
-
-/**
  * Submit handler.
  *
  * Replacing the owner of a group.

@@ -369,6 +369,13 @@ function c4m_admin_groups_views_default_views() {
   $handler->display->display_options['fields']['group_metrics_11']['label'] = 'Contributors/Pending members';
   $handler->display->display_options['fields']['group_metrics_11']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['group_metrics_11']['c4m_admin_groups_group_metric'] = 'group::contributors_vs_pending_members';
+  /* Field: Content: Group metrics */
+  $handler->display->display_options['fields']['group_metrics_14']['id'] = 'group_metrics_14';
+  $handler->display->display_options['fields']['group_metrics_14']['table'] = 'node';
+  $handler->display->display_options['fields']['group_metrics_14']['field'] = 'group_metrics';
+  $handler->display->display_options['fields']['group_metrics_14']['label'] = 'Shares';
+  $handler->display->display_options['fields']['group_metrics_14']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['group_metrics_14']['c4m_admin_groups_group_metric'] = 'group::share';
   /* Field: Flags: Flag counter */
   $handler->display->display_options['fields']['count']['id'] = 'count';
   $handler->display->display_options['fields']['count']['table'] = 'flag_counts';
@@ -440,6 +447,7 @@ function c4m_admin_groups_views_default_views() {
   $handler->display->display_options['style_options']['newline_token'] = '1';
   $handler->display->display_options['style_options']['header'] = 1;
   $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['style_options']['encoding'] = 'utf8_decode';
   $handler->display->display_options['path'] = 'admin/c4m/groups/export/file';
   $handler->display->display_options['use_batch'] = 'batch';
   $handler->display->display_options['return_path'] = 'admin/c4m/groups/export';

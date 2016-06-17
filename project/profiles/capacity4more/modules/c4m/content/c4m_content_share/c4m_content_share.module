@@ -241,14 +241,15 @@ function c4m_content_share_c4m_helper_entity_label_info_alter(
 }
 
 /**
- * Implements hook_c4m_og_metrics_info().
+ * Implements hook_c4m_helper_entity_metrics_info().
  */
-function c4m_content_share_c4m_og_metrics_info() {
+function c4m_content_share_c4m_helper_entity_metrics_info() {
   return array(
     'c4m_og_shares' => array(
-      'type'      => 'share',
-      'callback'  => 'c4m_og_group_share_metric',
-      'weight'    => 0,
+      'type'     => 'share',
+      'context'  => 'group',
+      'callback' => 'c4m_content_share_get_number_of_shared_content_per_group',
+      'weight'   => 0,
     ),
   );
 }
@@ -295,13 +296,15 @@ function c4m_content_share_get_shared_groups($node) {
  * If one node is shared multiple times, it is added to the sum multiple
  * times as well.
  *
- * @param object $group
- *   The group node object.
+ * @param int $gid
+ *   The group node ID.
  *
  * @return int
  *   Total sum of content shares within a group.
  */
-function c4m_content_share_get_number_of_shared_content_per_group($group) {
+function c4m_content_share_get_number_of_shared_content_per_group($gid) {
+  $group = node_load($gid);
+
   $query = _c4m_content_share_get_shared_content_per_group_query($group);
 
   $shares = $query->countQuery()->execute()->fetchField();
